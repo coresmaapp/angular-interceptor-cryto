@@ -1,0 +1,81 @@
+
+<div class="container">
+    <header>
+        <h1>Gestión de Productos</h1>
+        <button class="btn-add" id="addProduct" (click)="openModal()">Agregar Producto</button>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="productTable">
+                <!-- Productos dinámicos aquí -->
+                @for (item of productos; track $index) {
+                <tr>
+                    <td>1</td>
+                    <td>{{item.nombre}}</td>
+                    <td>${{item.precio}}</td>
+  
+                    @if (item.stock > 0) {
+                      <td>Stock: {{item.stock}}</td>
+                  }@else {
+                      <td>No disponible</td>
+                  }
+                    <td>
+                        <button class="btn-edit" (click)="editar(item)">Editar</button>
+                        <button class="btn-delete" (click)="deleteProduct(item.pk)">Eliminar</button>
+                    </td>
+                </tr>
+              }
+            </tbody>
+        </table>
+    </main>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal" [class.show]="isModalOpen">
+    <div class="modal-content">
+        <button class="close-btn" (click)="closeModal()">&times;</button>
+        <div class="product-detail">
+            
+          <form class="product-form" [formGroup]="formControl" autofocus (ngSubmit)="guardar()">
+            <div class="form-group">
+                <label for="product-name">Nombre del Producto:</label>
+                <input type="text" id="product-name" name="product_name" required formControlName="nombreCtrl">
+            </div>
+  
+            <div class="form-group">
+                <label for="product-description">Descripción:</label>
+                <textarea id="product-description" name="product_description" rows="4" required formControlName="descripcionCtrl"></textarea>
+            </div>
+  
+            <div class="form-group">
+                <label for="product-price">Precio:</label>
+                <input type="number" id="product-price" name="product_price" step="0.01" required formControlName="precioCtrl">
+            </div>
+  
+            <div class="form-group">
+                <label for="product-price">Stock:</label>
+                <input type="number" id="product-stock" name="product_price"  required formControlName="stockCtrl">
+            </div>
+  
+            <div class="form-group">
+                <label for="product-image">Imagen del Producto:</label>
+                <input type="url" id="product-image" name="product_image" placeholder="URL de la imagen" required formControlName="imagenCtrl">
+            </div>
+  
+            <button class="btn-buy">Comprar Ahora</button>
+  
+        </form>
+  
+        </div>
+    </div>
+  </div>
+  
