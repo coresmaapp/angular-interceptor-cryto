@@ -12,7 +12,7 @@ export class HttpService {
 
   private http = inject(HttpClient);
 
-  private apiUrl = ``
+  private apiUrl = `http://143.198.224.159:8001/api/productos/`
 
 
 
